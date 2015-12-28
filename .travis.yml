@@ -5,5 +5,5 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
 before_script:
-#  - python manage.py db upgrade
+  - python manage.py db upgrade
 script: coverage run test.py
