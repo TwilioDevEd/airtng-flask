@@ -14,6 +14,10 @@ def view(view_name, form=None):
     return render_template("{0}.html".format(view_name), form=form)
 
 
+def view_with_params(view_name, **options):
+    return render_template("{0}.html".format(view_name), **options)
+
+
 def redirect_to(view_name, **options):
     if len(options) == 0:
         return redirect(url_for(view_name))

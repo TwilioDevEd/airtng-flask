@@ -5,47 +5,47 @@ from wtforms.validators import DataRequired, Length, Email, URL
 
 class RegisterForm(Form):
     name = TextField(
-            'Tell us your name',
+            'Tell us your name:',
             validators=[DataRequired(message="Name is required"),
                         Length(min=3, message="Name must greater than 3 chars")]
     )
     email = TextField(
-            'Enter your E-mail',
+            'Enter your E-mail:',
             validators=[DataRequired("E-mail is required"), Email(message="Invalid E-mail address")]
     )
     password = PasswordField(
-            'Password',
+            'Password:',
             validators=[DataRequired("Password is required")]
     )
     country_code = TextField(
-            'Country Code',
+            'Country Code:',
             validators=[DataRequired("Country code is required"),
                         Length(min=1, max=4, message="Country code must be between 1 and 4 numbers")]
     )
 
     phone_number = IntegerField(
-            'Phone Number',
+            'Phone Number:',
             validators=[DataRequired("Valid phone number is required")]
     )
 
 
 class LoginForm(Form):
     email = TextField(
-            'E-mail',
+            'E-mail:',
             validators=[DataRequired("E-mail is required"), Email(message="Invalid E-mail address")]
     )
     password = PasswordField(
-            'Password',
+            'Password:',
             validators=[DataRequired("Password is required")]
     )
 
 
 class VacationPropertyForm(Form):
     description = TextField(
-            'Description',
+            'Description:',
             validators=[DataRequired("Description is required")]
     )
     image_url = TextField(
-            'Password',
+            'Image URL:',
             validators=[DataRequired("Image Url required"), URL("Invalid Image Url")]
     )

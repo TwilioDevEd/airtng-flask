@@ -3,7 +3,7 @@ from flask import session, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from airtng_flask.models import init_models_module
 from flask import request, flash
-from airtng_flask.view_helpers import twiml, view, redirect_to
+from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
 from flask import Blueprint
 from flask_login import logout_user
 
@@ -72,7 +72,8 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
     @views.route('/properties', methods=["GET"])
     @login_required
     def properties():
-        return "properties"
+        vacation_properties = VacationProperty.query.all()
+        return view_with_params('properties', vacation_properties=vacation_properties)
 
     @views.route('/properties/new', methods=["GET", "POST"])
     @login_required
@@ -88,6 +89,10 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
                 return redirect_to('views', 'properties')
 
         return view('property_new', form)
+
+    @views.route('/reservations/<id>', methods=["GET", "POST"])
+    def new_reservation(id=None):
+        return "new reservation"
 
     # controller utils
     @views.before_request
