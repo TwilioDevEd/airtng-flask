@@ -11,7 +11,7 @@ class VacationProperty(db.Model):
     image_url = db.Column(db.String, nullable=False)
 
     host_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    host = db.relationship("Host", back_populates="vacation_properties")
+    host = db.relationship("User", back_populates="vacation_properties")
     reservations = db.relationship("Reservation", back_populates="vacation_property")
 
     def __init__(self, name, image_url, host):

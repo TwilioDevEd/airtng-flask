@@ -18,8 +18,8 @@ class Reservation(db.Model):
 
     guest_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     vacation_property_id = db.Column(db.Integer, db.ForeignKey('vacation_properties.id'))
-    guest = db.relationship("Host", back_populates="reservations")
-    vacation_property = db.relationship("Host", back_populates="reservations")
+    guest = db.relationship("User", back_populates="reservations")
+    vacation_property = db.relationship("VacationProperty", back_populates="reservations")
 
     def __init__(self, name, message, vacation_property, guest):
         self.message = message

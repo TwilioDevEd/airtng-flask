@@ -9,7 +9,7 @@ class DefaultConfig(object):
 
 class DevelopmentConfig(DefaultConfig):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////Users/nebtrx/Documents/work/twilio/airtng-flask/airtng_flask.db'
 
 
 class TestConfig(DefaultConfig):

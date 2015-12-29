@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block nav_bg %}
+
+<!-- Nav Bar -->
+<nav class="navbar navbar-space">
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Log in</h1>
+
+    <form method="POST" class="form-horizontal" role="form">
+        {% from "_formhelpers.html" import render_errors, render_field %}
+        {{ form.csrf_token }}
+        {{ render_errors(form) }}
+        <hr/>
+
+        {{ render_field(form.email, placeholder='your@email.com') }}
+        {{ render_field(form.password) }}
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Log in"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
