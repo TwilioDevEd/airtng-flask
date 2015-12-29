@@ -10,7 +10,7 @@
 
 <div class="container">
     <h1>Signup for Airtng</h1>
-    <form method="POST" class="form-horizontal" role="form">
+    <form method="POST" role="form">
         {% from "_formhelpers.html" import render_errors, render_field %}
         {{ form.csrf_token }}
         {{ render_errors(form) }}
@@ -22,11 +22,7 @@
         {{ render_field(form.country_code, id="authy-countries" ) }}
         {{ render_field(form.phone_number , type='number') }}
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-primary" value="Sign Up"/>
-            </div>
-        </div>
+        <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
 
 </div>

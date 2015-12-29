@@ -8,10 +8,8 @@
     </ul>
     {% endif %}
 
-    {{ field.label(class_="col-md-2 control-label") }}
-    <div class="col-md-10">
-        {{ field(class_="form-control", **kwargs) }}
-    </div>
+    {{ field.label(class_="control-label") }}
+    {{ field(class_="form-control", **kwargs) }}
 </div>
 {% endmacro %}
 

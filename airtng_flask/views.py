@@ -69,7 +69,12 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
     def home():
         return view('home')
 
-    @views.route('/properties/new', methods=["GET"])
+    @views.route('/properties', methods=["GET"])
+    @login_required
+    def properties():
+        return "properties"
+
+    @views.route('/properties/new', methods=["GET", "POST"])
     @login_required
     def new_property():
         form = VacationPropertyForm()
@@ -82,7 +87,7 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
                 db.session.commit()
                 return redirect_to('views', 'properties')
 
-        return view('property_new.html', form)
+        return view('property_new', form)
 
     # controller utils
     @views.before_request
