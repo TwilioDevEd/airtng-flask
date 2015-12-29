@@ -1,4 +1,4 @@
-from airtng_flask.forms import RegisterForm, LoginForm
+from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm
 from flask import session, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from airtng_flask.models import init_models_module
@@ -68,6 +68,21 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
     @login_required
     def home():
         return view('home')
+
+    @views.route('/properties/new', methods=["GET"])
+    @login_required
+    def new_property():
+        form = VacationPropertyForm()
+        if request.method == 'POST':
+            if form.validate_on_submit():
+                host = User.query.get(current_user.get_id())
+
+                property = VacationProperty(form.description.data, form.image_url.data, host)
+                db.session.add(property)
+                db.session.commit()
+                return redirect_to('views', 'properties')
+
+        return view('property_new.html', form)
 
     # controller utils
     @views.before_request
