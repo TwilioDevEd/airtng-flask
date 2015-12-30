@@ -6,7 +6,7 @@ model_settings = {
 
 def init_models_module(db, bcrypt):
     model_settings['db'] = db
-    model_settings['bcript'] = bcrypt
+    model_settings['bcrypt'] = bcrypt
 
 
 def app_db():
@@ -14,4 +14,4 @@ def app_db():
 
 
 def bcrypt():
-    return model_settings['bcript']
+    return model_settings['bcrypt']

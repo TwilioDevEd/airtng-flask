@@ -47,5 +47,5 @@ class VacationPropertyForm(Form):
     )
     image_url = TextField(
             'Image URL:',
-            validators=[DataRequired("Image Url required"), URL("Invalid Image Url")]
+            validators=[DataRequired("Image Url required"), URL(message="Invalid Image Url")]
     )

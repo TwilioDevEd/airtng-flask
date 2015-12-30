@@ -1,20 +1,18 @@
-from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm
-from flask import session, g
+from flask import session, g, request, flash, Blueprint
 from flask.ext.login import login_user, logout_user, current_user, login_required
-from airtng_flask.models import init_models_module
-from flask import request, flash
+
+from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm
 from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
-from flask import Blueprint
-from flask_login import logout_user
+from airtng_flask.models import init_models_module
 
 
 def construct_view_blueprint(app, db, login_manager, bcrypt):
     views = Blueprint("views", __name__)
 
     init_models_module(db, bcrypt)
-    from airtng_flask.models.User import User
-    from airtng_flask.models.VacationProperty import VacationProperty
-    from airtng_flask.models.Reservation import Reservation
+    from airtng_flask.models.user import User
+    from airtng_flask.models.vacation_property import VacationProperty
+    from airtng_flask.models.reservation import Reservation
 
     @views.route('/', methods=["GET", "POST"])
     @views.route('/register', methods=["GET", "POST"])

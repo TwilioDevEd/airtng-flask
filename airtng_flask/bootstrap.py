@@ -1,12 +1,12 @@
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 from flask import Flask
 from airtng_flask import get_env
 from airtng_flask.config import config_env_files
 from airtng_flask.database import set_db
 from airtng_flask.views import construct_view_blueprint
-from flask_login import LoginManager
 
 apps = {
     'test': None,
@@ -31,10 +31,12 @@ def init_app(config_name):
 
 def _configure_app(flask_app, config_name):
     flask_app.config.from_object(config_env_files[config_name])
+
     app_db = SQLAlchemy(flask_app)
     bcrypt = Bcrypt(flask_app)
     login_manager = LoginManager(flask_app)
     _configure_login_manager(login_manager)
+
     set_db(app_db, config_name)
     flask_app.register_blueprint(construct_view_blueprint(flask_app, app_db, login_manager, bcrypt))
 
