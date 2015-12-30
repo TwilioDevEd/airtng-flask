@@ -21,7 +21,7 @@ class Reservation(db.Model):
     guest = db.relationship("User", back_populates="reservations")
     vacation_property = db.relationship("VacationProperty", back_populates="reservations")
 
-    def __init__(self, name, message, vacation_property, guest):
+    def __init__(self, message, vacation_property, guest):
         self.message = message
         self.guest = guest
         self.vacation_property = vacation_property

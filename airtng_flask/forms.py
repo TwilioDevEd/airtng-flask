@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, IntegerField
+from wtforms import TextField, PasswordField, IntegerField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, URL
 
 
@@ -49,3 +49,12 @@ class VacationPropertyForm(Form):
             'Image URL:',
             validators=[DataRequired("Image Url required"), URL(message="Invalid Image Url")]
     )
+
+
+class ReservationForm(Form):
+    message = TextField(
+            'Message:',
+            validators=[DataRequired("Message is required")]
+    )
+
+    property_id = HiddenField()

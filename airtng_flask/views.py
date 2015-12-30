@@ -1,7 +1,8 @@
+from airtng_flask.twilio import init_twilio_module
 from flask import session, g, request, flash, Blueprint
 from flask.ext.login import login_user, logout_user, current_user, login_required
 
-from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm
+from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, ReservationForm
 from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
 from airtng_flask.models import init_models_module
 
@@ -10,6 +11,7 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
     views = Blueprint("views", __name__)
 
     init_models_module(db, bcrypt)
+    init_twilio_module(app)
     from airtng_flask.models.user import User
     from airtng_flask.models.vacation_property import VacationProperty
     from airtng_flask.models.reservation import Reservation
@@ -88,16 +90,36 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
 
         return view('property_new', form)
 
-    @views.route('/reservations/<id>', methods=["GET", "POST"])
-    def new_reservation(id=None):
-        return "new reservation"
+    @views.route('/reservations/', methods=["POST"], defaults={'property_id': None})
+    @views.route('/reservations/<property_id>', methods=["GET", "POST"])
+    def new_reservation(property_id):
+
+        global vacation_property
+        form = ReservationForm()
+        form.property_id.data = property_id
+
+        if request.method == 'POST':
+            if form.validate_on_submit():
+                guest = User.query.get(current_user.get_id())
+
+                vacation_property = VacationProperty.query.get(form.property_id.data)
+                reservation = Reservation(form.message.data, vacation_property, guest)
+                db.session.add(reservation)
+                db.session.commit()
+                return redirect_to('views', 'properties')
+
+        if property_id is not None:
+            vacation_property = VacationProperty.query.get(property_id)
+
+        return view_with_params('reservation', vacation_property=vacation_property, form=form)
 
     # controller utils
     @views.before_request
     def before_request():
         g.user = current_user
         uri_pattern = request.url_rule
-        if current_user.is_authenticated and (uri_pattern == '/login' or uri_pattern == '/register'):
+        if current_user.is_authenticated and (
+                            uri_pattern == '/' or uri_pattern == '/login' or uri_pattern == '/register'):
             redirect_to('views', 'home')
 
     @login_manager.user_loader

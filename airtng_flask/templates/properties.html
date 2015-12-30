@@ -16,7 +16,7 @@
     <div class="row">
         {% for prop in vacation_properties %}
         <div class="col-md-4">
-            <a href="url_for('reservations', id=prop.id)" class="property">
+            <a href="{{ url_for('views.new_reservation', property_id=prop.id) }}" class="property">
                 <img src="{{ prop.image_url }}" alt="Vacation Property"/>
                 <h2>{{ prop.description }}"</h2>
             </a>

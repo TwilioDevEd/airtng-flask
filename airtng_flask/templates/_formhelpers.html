@@ -1,4 +1,9 @@
 {% macro render_field(field) %}
+
+{% if (field.type == 'HiddenField') %}
+<input type="hidden" name="{{field.name}}" id="{{field.id}}" value="{{field.data}}"/>
+{% else %}
+
 <div class="form-group">
     {% if field.errors %}
     <ul>
@@ -8,9 +13,12 @@
     </ul>
     {% endif %}
 
+
     {{ field.label(class_="control-label") }}
     {{ field(class_="form-control", **kwargs) }}
 </div>
+{% endif %}
+
 {% endmacro %}
 
 {% macro render_errors(form) %}
