@@ -1,4 +1,4 @@
-from airtng_flask.lib.string_builder import StringBuilder
+from airtng_flask.utilities.string_builder import StringBuilder
 from airtng_flask.twilio.sms_sender import SmsSender
 
 
