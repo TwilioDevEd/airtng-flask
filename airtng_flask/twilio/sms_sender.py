@@ -16,8 +16,3 @@ class SmsSender:
                 from_=phone_number(),
                 body=message,
         )
-
-    def respond_message(self, message):
-        response = twiml.Response()
-        response.message(message)
-        return response

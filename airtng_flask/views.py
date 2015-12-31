@@ -1,8 +1,10 @@
 from airtng_flask.twilio import init_twilio_module
 from flask import session, g, request, flash, Blueprint
 from flask.ext.login import login_user, logout_user, current_user, login_required
+from airtng_flask.services.sms_notifier import SmsNotifier
 
-from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, ReservationForm
+from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, ReservationForm, \
+    ReservationConfirmationForm
 from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
 from airtng_flask.models import init_models_module
 
@@ -12,9 +14,11 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
 
     init_models_module(db, bcrypt)
     init_twilio_module(app)
+
     from airtng_flask.models.user import User
     from airtng_flask.models.vacation_property import VacationProperty
     from airtng_flask.models.reservation import Reservation
+    from airtng_flask.models.reservation import ReservationStatus
 
     @views.route('/', methods=["GET", "POST"])
     @views.route('/register', methods=["GET", "POST"])
@@ -106,12 +110,43 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
                 reservation = Reservation(form.message.data, vacation_property, guest)
                 db.session.add(reservation)
                 db.session.commit()
+
+                sms_notifier = SmsNotifier()
+                sms_notifier.notify_host(reservation)
+
                 return redirect_to('views', 'properties')
 
         if property_id is not None:
             vacation_property = VacationProperty.query.get(property_id)
 
         return view_with_params('reservation', vacation_property=vacation_property, form=form)
+
+    @views.route('/reservations/confirm', methods=["POST"])
+    def confirm_reservation():
+
+        form = ReservationConfirmationForm()
+        sms_response_text = "Sorry, it looks like you don't have any reservations to respond to."
+
+        user = User.query.filter(User.phone_number == form.From.data)
+        reservation = Reservation \
+            .query \
+            .filter(Reservation.status == ReservationStatus.Pending
+                    and Reservation.vacation_property.host.id == user.id) \
+            .first()
+
+        if reservation is not None:
+
+            if 'yes' in form.Body.data or 'accept' in form.Body.data:
+                reservation.confirm()
+            else:
+                reservation.reject()
+
+            sms_response_text = "You have successfully %s the reservation".format(reservation.status);
+
+            sms_notifier = SmsNotifier()
+            sms_notifier.notify_guest(reservation)
+
+        return twiml(_respond_message(sms_response_text))
 
     # controller utils
     @views.before_request
@@ -128,5 +163,10 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
             return User.query.get(id)
         except:
             return None
+
+    def _respond_message(message):
+        response = twiml.Response()
+        response.message(message)
+        return response
 
     return views

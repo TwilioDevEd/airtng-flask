@@ -58,3 +58,8 @@ class ReservationForm(Form):
     )
 
     property_id = HiddenField()
+
+
+class ReservationConfirmationForm(Form):
+    From = TextField('From:')
+    Body = TextField('Body')
