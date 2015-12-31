@@ -1,5 +1,4 @@
-from airtng_flask.twilio import account_sid, auth_token, phone_number
-from twilio import twiml
+from airtng_flask.sms import account_sid, auth_token, phone_number
 from twilio.rest import TwilioRestClient
 
 

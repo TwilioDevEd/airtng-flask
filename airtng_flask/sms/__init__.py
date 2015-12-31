@@ -3,7 +3,7 @@ twilio_settings = {
 }
 
 
-def init_twilio_module(flask_app):
+def init_sms_module(flask_app):
     twilio_settings['app'] = flask_app
 
 
