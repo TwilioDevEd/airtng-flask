@@ -27,53 +27,53 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
    http://<your-ngrok-subdomain>.ngrok.io/reservation-confirmation
    ```
 
-  1. Clone this repository and `cd` into its directory:
-     ```
-     git clone git@github.com:TwilioDevEd/airtng-flask.git
-     ```
+1. Clone this repository and `cd` into its directory:
+   ```
+   git clone git@github.com:TwilioDevEd/airtng-flask.git
+   ```
 
-  1. Create a new virtual environment:
-     - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
+1. Create a new virtual environment:
+   - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
 
-         ```
-         virtualenv venv
-         source venv/bin/activate
-         ```
+       ```
+       virtualenv venv
+       source venv/bin/activate
+       ```
 
-     - If using [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/):
+   - If using [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/):
 
-         ```
-         mkvirtualenv airtng-flask
-         ```
-  1. Install the requirements:
+       ```
+       mkvirtualenv airtng-flask
+       ```
+1. Install the requirements:
 
-     ```
-     pip install -r requirements.txt
-     ```
+   ```
+   pip install -r requirements.txt
+   ```
 
-  1. Edit the following keys/values for the `config.py` file inside the  `airtng_flask/` directory. Be sure to replace the place holders and connection string with real information. Replace the connection string preferably under development config.
+1. Edit the following keys/values for the `config.py` file inside the  `airtng_flask/` directory. Be sure to replace the place holders and connection string with real information. Replace the connection string preferably under development config.
 
-     ```
-     TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
-     TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
-     TWILIO_NUMBER = 'your_twilio_phone_number'
+   ```
+   TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
+   TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
+   TWILIO_NUMBER = 'your_twilio_phone_number'
 
-     SQLALCHEMY_DATABASE_URI = 'sqlite://'
-     ```
+   SQLALCHEMY_DATABASE_URI = 'sqlite://'
+   ```
 
-  1. Run the migrations with:
+1. Run the migrations with:
 
-     ```
-     python manage.py db upgrade
-     ```
+   ```
+   python manage.py db upgrade
+   ```
 
-  1. Start the development server
+1. Start the development server
 
-     ```
-     python manage.py runserver
-     ```
+   ```
+   python manage.py runserver
+   ```
 
-  1. Check it out at [http://localhost:5000](http://localhost:5000)
+1. Check it out at [http://localhost:5000](http://localhost:5000)
 
 
 That's it
