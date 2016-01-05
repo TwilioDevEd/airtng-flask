@@ -1,4 +1,4 @@
-from airtng_flask.forms import LoginForm, RegisterForm, VacationPropertyForm
+from airtng_flask.forms import LoginForm, RegisterForm, VacationPropertyForm, ExchangeForm
 from tests.base import BaseTestCase
 
 

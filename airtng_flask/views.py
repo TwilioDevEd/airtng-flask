@@ -187,12 +187,6 @@ def load_user(id):
     except:
         return None
 
-
-def _respond_message(message):
-    response = twilio.twiml.Response()
-    response.message(message)
-    return response
-
 def _gather_outgoing_phone_number(incoming_phone_number, anonymous_phone_number):
     reservation = Reservation.query.filter(Reservation.anonymous_phone_number == anonymous_phone_number)
 
