@@ -1,5 +1,11 @@
 from flask.ext.testing import TestCase
 from airtng_flask import app, config_app
+from airtng_flask.models import init_models_module
+from tests import init_test_environment, test_app, test_db, test_bcrypt
+
+from airtng_flask.models.reservation import Reservation
+from airtng_flask.models.user import User
+from airtng_flask.models.vacation_property import VacationProperty
 
 from airtng_flask.models.reservation import Reservation
 from airtng_flask.models.user import User
