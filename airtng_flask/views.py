@@ -7,13 +7,7 @@ from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, Re
     ReservationConfirmationForm, ExchangeForm
 from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
 from airtng_flask.models import init_models_module
-
-init_models_module(db, bcrypt, app)
-
-from airtng_flask.models.user import User
-from airtng_flask.models.vacation_property import VacationProperty
-from airtng_flask.models.reservation import Reservation
-
+from airtng_flask.phone import init_sms_module
 
 @app.route('/', methods=["GET", "POST"])
 @app.route('/register', methods=["GET", "POST"])
@@ -90,9 +84,6 @@ def new_property():
             db.session.add(property)
             db.session.commit()
             return redirect_to('properties')
-
-    return view('property_new', form)
-
 
 @app.route('/reservations/', methods=["POST"], defaults={'property_id': None})
 @app.route('/reservations/<property_id>', methods=["GET", "POST"])
