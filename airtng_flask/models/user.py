@@ -13,15 +13,17 @@ class User(db.Model):
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     phone_number = db.Column(db.String, nullable=False)
+    area_code = db.Column(db.String, nullable=False)
 
     reservations = db.relationship("Reservation", back_populates="guest")
     vacation_properties = db.relationship("VacationProperty", back_populates="host")
 
-    def __init__(self, name, email, password, phone_number):
+    def __init__(self, name, email, password, phone_number, area_code):
         self.name = name
         self.email = email
         self.password = bcrypt.generate_password_hash(password)
         self.phone_number = phone_number
+        self.area_code = area_code
 
     def is_authenticated(self):
         return True

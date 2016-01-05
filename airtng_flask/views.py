@@ -4,7 +4,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 import twilio.twiml
 
 from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, ReservationForm, \
-    ReservationConfirmationForm
+    ReservationConfirmationForm, ExchangeForm
 from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
 from airtng_flask.models import init_models_module
 
@@ -139,6 +139,7 @@ def confirm_reservation():
 
         if 'yes' in form.Body.data or 'accept' in form.Body.data:
             reservation.confirm()
+            reservations.buy_number(user.area_code)
         else:
             reservation.reject()
 
@@ -149,6 +150,26 @@ def confirm_reservation():
 
     return twiml(_respond_message(sms_response_text))
 
+@app.route('/exchange/sms', methods=["POST"])
+def exchange_sms():
+    form = ExchangeForm()
+
+    outgoing_number = _gather_outgoing_phone_number(form.From.data, form.To.data)
+
+    response = twilio.twiml.Response()
+    response.addSms(form.Body.data, to=outgoing_number)
+    return twiml(response)
+
+@app.route('/exchange/voice', methods=["POST"])
+def exchange_voice():
+    form = ExchangeForm()
+
+    outgoing_number = _gather_outgoing_phone_number(form.From.data, form.To.data)
+
+    response = twilio.twiml.Response()
+    response.addPlay("http://howtodocs.s3.amazonaws.com/howdy-tng.mp3")
+    response.addDial(outgoing_number)
+    return twiml(response)
 
 # controller utils
 @app.before_request
@@ -159,7 +180,6 @@ def before_request():
                         uri_pattern == '/' or uri_pattern == '/login' or uri_pattern == '/register'):
         redirect_to('home')
 
-
 @login_manager.user_loader
 def load_user(id):
     try:
@@ -167,6 +187,19 @@ def load_user(id):
     except:
         return None
 
+
+def _respond_message(message):
+    response = twilio.twiml.Response()
+    response.message(message)
+    return response
+
+def _gather_outgoing_phone_number(incoming_phone_number, anonymous_phone_number):
+    reservation = Reservation.query.filter(Reservation.anonymous_phone_number == anonymous_phone_number)
+
+    if reservation.guest.phone_number == incoming_phone_number:
+        return reservation.vacation_property.host.phone_number
+
+    return reservation.guest.phone_number
 
 def _respond_message(message):
     response = twilio.twiml.Response()

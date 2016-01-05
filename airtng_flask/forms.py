@@ -61,5 +61,11 @@ class ReservationForm(Form):
 
 
 class ReservationConfirmationForm(Form):
-    From = TextField('From:')
+    From = TextField('From')
+    Body = TextField('Body')
+
+
+class ExchangeForm(Form):
+    From = TextField('From')
+    To = TextField('To')
     Body = TextField('Body')

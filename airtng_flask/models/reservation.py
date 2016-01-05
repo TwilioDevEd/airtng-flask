@@ -11,7 +11,7 @@ class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String, nullable=False)
     status = db.Column(db.Enum('pending', 'confirmed', 'rejected', name='reservation_status_enum'), default='pending')
-
+    anonymous_phone_number = db.Column(db.String, nullable=True)
     guest_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     vacation_property_id = db.Column(db.Integer, db.ForeignKey('vacation_properties.id'))
     guest = db.relationship("User", back_populates="reservations")
