@@ -65,6 +65,7 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
         return view('login', form)
 
     @views.route('/logout', methods=["POST"])
+    @login_required
     def logout():
         logout_user()
         return redirect_to('views', 'home')
@@ -97,6 +98,7 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
 
     @views.route('/reservations/', methods=["POST"], defaults={'property_id': None})
     @views.route('/reservations/<property_id>', methods=["GET", "POST"])
+    @login_required
     def new_reservation(property_id):
 
         global vacation_property
