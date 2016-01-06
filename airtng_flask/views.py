@@ -130,7 +130,7 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
         form = ReservationConfirmationForm()
         sms_response_text = "Sorry, it looks like you don't have any reservations to respond to."
 
-        user = User.query.filter(User.phone_number == form.From.data)
+        user = User.query.filter(User.phone_number == form.From.data).first()
         reservation = Reservation \
             .query \
             .filter(Reservation.status == ReservationStatus.Pending
@@ -144,6 +144,8 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
             else:
                 reservation.reject()
 
+            db.session.commit()
+            
             sms_response_text = "You have successfully {0} the reservation".format(reservation.status);
 
             sms_notifier = SmsNotifier()
