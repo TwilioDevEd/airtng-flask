@@ -72,13 +72,11 @@ def logout():
 def home():
     return view('home')
 
-
 @app.route('/properties', methods=["GET"])
 @login_required
 def properties():
     vacation_properties = VacationProperty.query.all()
     return view_with_params('properties', vacation_properties=vacation_properties)
-
 
 @app.route('/properties/new', methods=["GET", "POST"])
 @login_required

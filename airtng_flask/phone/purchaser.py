@@ -33,5 +33,5 @@ class Purchaser:
         return None
 
     def _purchase_number(self, number):
-        return number.purchase(sms_aplication_sid=application_sid(),
+        return number.purchase(sms_application_sid=application_sid(),
                                voice_application_sid=application_sid()).phone_number
