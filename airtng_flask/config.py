@@ -17,6 +17,7 @@ class TestConfig(DefaultConfig):
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     DEBUG = True
     TESTING = True
+    LOGIN_DISABLED = True
     WTF_CSRF_ENABLED = False
 
 

@@ -36,7 +36,7 @@ class ViewsTests(BaseTestCase):
         self.assert_template_used('properties.html')
 
     def test_get_to_new_reservation_route_should_render_default_view(self):
-        self.client.get('/reservations/new')
+        self.client.get('/reservations/1')
 
         self.assert_template_used('reservation.html')
 
