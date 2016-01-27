@@ -1,5 +1,8 @@
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 class DefaultConfig(object):
-    SECRET_KEY = '%^!@@*!&$8xdfdirunb52438#(&^874@#^&*($@*(@&^@)(&*)Y_)((+'
+    SECRET_KEY = 'secret-key'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
     TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
@@ -9,7 +12,7 @@ class DefaultConfig(object):
 
 class DevelopmentConfig(DefaultConfig):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'dev.sqlite')
 
 
 class TestConfig(DefaultConfig):

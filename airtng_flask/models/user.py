@@ -33,7 +33,10 @@ class User(db.Model):
         return False
 
     def get_id(self):
-        return unicode(self.id)
+        try:
+            return unicode(self.id)
+        except NameError:
+            return str(self.id) # Python 3
 
     def __unicode__(self):
         return self.name

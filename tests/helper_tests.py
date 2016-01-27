@@ -1,6 +1,6 @@
 import unittest
 from airtng_flask.view_helpers import redirect_to, view
-from base import BaseTestCase
+from tests.base import BaseTestCase
 from flask import redirect, url_for, render_template
 
 

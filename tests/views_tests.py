@@ -1,7 +1,7 @@
 import unittest
 import xml.etree.ElementTree as ElementTree
 
-from base import BaseTestCase
+from tests.base import BaseTestCase
 
 
 class ViewsTests(BaseTestCase):
