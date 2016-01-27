@@ -38,12 +38,13 @@
 
       For this workflow to work, we need to have users created in our application,
       and allow them to log in into airtng.
-      Each user will hold his personal information, which will be required when the
-      moment to send sms notifications come.
+
+      Our `User` model stores a user's basic information, including their phone
+      number. We'll use that to send them SMS notifications later.
 
       **See Also:**
-      * [Flask-Migrate Extension](//flask-migrate.readthedocs.org/en/latest/)
       * [SQLAlchemy ORM](//www.sqlalchemy.org/)
+      * [Flask-Migrate Extension](//flask-migrate.readthedocs.org/en/latest/)
 
 
   .step(data-title='Vacation Property Model',
@@ -51,6 +52,7 @@
     data-highlight='6-23')
     :markdown
       ## Vacation Property
+
       In order to build a true vacation rentals company we'll need a way to
       create the property listings.
 
@@ -58,8 +60,9 @@
       (we'll call this user the _host_ moving forward) and contains only two
       properties: a `description` and an `image_url`.
 
-      It has two associations in that it has many reservations and therefore
-      many users through those reservations.
+      We also include a couple database relationship fields to help us link
+      vacation properties to their host and to any reservations our users make
+      for this property.
 
       **See Also:**
       * [SQLAlchemy entity relationships](//docs.sqlalchemy.org/en/latest/orm/basic_relationships.html)
@@ -78,7 +81,6 @@
 
         * status of the reservation
 
-
   .step(data-title="Reservation Creation",
     data-file='airtng_flask/views.py',
     data-highlight='99-125')
@@ -86,40 +88,38 @@
       ## Reservation creation
 
       The reservation creation form holds only one field, the message that will
-      be sent to the _host_ user when reserving one of his properties. The rest
+      be sent to the _host_ user when reserving one of their properties. The rest
       of the information necessary to create a reservation is taken from the user
       that is logged in into the system and also the relationship between a property
-      and it's owner.
+      and its owner.
 
       A reservation is created with a default status `pending`, so when the _host_
-      replies with a `confirm` or `reject` response, the system knows which reservation
+      replies with a `accept` or `reject` response, the system knows which reservation
       the _host_ is referring to.
 
-      In the next step we'll take a look at how the sms notification is sent to
+      In the next step we'll take a look at how the SMS notification is sent to
       the host when the reservation is created.
-
 
   .step(data-title="Reservation Creation",
     data-file='airtng_flask/sms/sms_sender.py')
     :markdown
       ## Notifying the host
 
-      When a reservation is created for a property, we want to notify the owner
-      of said property that someone has made a reservation. For this purpose we use
+      When a reservation is created for a property, we want to notify the host
+      that someone has made a reservation. For this purpose we use
       an abstraction called [`SmsNotifier`](//github.com/TwilioDevEd/airtng-flask/blob/f8220038dea94f5ecc43e5069e9eaf3d6c846a47/airtng_flask/services/sms_notifier.py)
       , which uses, under the hood, another abstraction called `SmsSender`.
 
       This one is where we use [Twilio's Rest
       API](//www.twilio.com/docs/quickstart/python/sms/sending-via-rest)
-      to send a sms message to the _host_, using your [Twilio phone
+      to send a SMS message to the _host_, using your [Twilio phone
       number](//www.twilio.com/user/account/phone-numbers/incoming).
 
-      As you can see, sending sms messages using Twilio is as easy as the code
-      to your right shows. Now we just have to wait for the host to send an sms
+      Now we just have to wait for the host to send an SMS
       response accepting or rejecting the reservation, so we can notify the guest
       and host that the reservation information is updated accordingly.
 
-      The next step shows how to handle and configure the host's sms response.
+      The next step shows how to handle and configure the host's SMS response.
 
       **See Also:**
       * [Twilio Rest API](//www.twilio.com/docs/api/rest)
@@ -140,28 +140,29 @@
 
       1. Responds to the host and sends notification to the guest.
 
-      ## Incoming Twilio Request
+      ### Incoming Twilio Request
       In your [Twilio number](//www.twilio.com/user/account/phone-numbers/incoming)
-      you must setup the sms web hook to call your
-      application's end point in the route `/reservation/confirm`. Remember to
+      you must setup the SMS webhook to call your
+      application's endpoint in the route `/reservations/confirm`. Remember to
       to expose your development machine to the outside world using
-      [ngrok](//ngrok.com/). So, your url for the sms web hook on your number
+      [ngrok](//ngrok.com/). Your URL for the SMS web hook on your phone number
       should look like this:
       ```
-      http://<subdomain>.ngrok.io/reservation/confirm
+      http://<subdomain>.ngrok.io/reservations/confirm
       ```
 
       An incoming request from Twilio comes with some helpful
       [parameters](//www.twilio.com/docs/api/twiml/sms/twilio_request#request-parameters).
       These include the `From` phone number and the message `Body`.
 
-      We'll use the `From` parameter to lookup the host and check if she has any
-      pending reservations. If she does, we'll use the message body to check if she
+      We'll use the `From` parameter to look up the host and check if they have any
+      pending reservations. If they do, we'll use the message body to check if they
       accepted or rejected the reservation. Then, we update the reservation status and
-      use the `SmsNotifier` abstraction to send an SMS to the _guest_ notifying him the
-      the decision the host made, regarding the property reservation..
+      use the `SmsNotifier` abstraction to send an SMS to the _guest_ telling them
+      the host accepted or rejected their reservation request.
 
-      ## TwiML Response
+      ### TwiML Response
+
       Finally, we'll use [Twilio's TwiML](//www.twilio.com/docs/quickstart/python/sms/replying-to-sms-messages)
       as a response to Twilio's server
       instructing it to send sms notification message to the _host_, specifically the
@@ -176,10 +177,9 @@
 
       To improve upon this you could add anonymous communications so that the host
       and guest could communicate through a shared Twilio phone number.
-      Hmmm... maybe we'll have to put together a tutorial on that!
+      [Head over to part two of this tutorial to see how](//www.twilio.com/docs/tutorials/walkthrough/masked-numbers/python/flask).
 
-      If you're a Python developer working with Twilio, you might enjoy these
-      other tutorials:
+      You might also enjoy these other tutorials:
 
       [**IVR Phone Tree**](//www.twilio.com/docs/tutorials/walkthrough/ivr-phone-tree/python/flask)
 
@@ -194,6 +194,5 @@
       Thanks for checking out this tutorial! If you have any feedback to share
       with us, we'd love to hear it. Tweet
       [@twilio](http://twitter.com/twilio) to let us know what you think.
-
 
       ![Airtng](http://howtodocs.s3.amazonaws.com/airtng-screen2.png)
