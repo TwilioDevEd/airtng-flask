@@ -30,7 +30,8 @@ class Reservation(db.Model):
         self.status = 'rejected'
 
     def __repr__(self):
-        return '<VacationProperty %r %r>' % self.id, self.name
+        return '<Reservation {0}>'.format(self.id)
+
 
     def notify_host(self):
         self._send_message(self.vacation_property.host.phone_number,

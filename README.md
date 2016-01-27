@@ -22,7 +22,7 @@ ngrok http 5000 -host-header="localhost:5000"
 
 Bear in mind that our endpoint is:
 ```
-http://<your-ngrok-subdomain>.ngrok.io/reservation/confirm
+http://<your-ngrok-subdomain>.ngrok.io/reservations/confirm
 ```
 
 

@@ -20,4 +20,4 @@ class VacationProperty(db.Model):
         self.host = host
 
     def __repr__(self):
-        return '<VacationProperty %r %r>' % self.id, self.description
+        return '<VacationProperty {0} {1}>'.format(self.id, self.description)
