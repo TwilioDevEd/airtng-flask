@@ -16,7 +16,6 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
     from airtng_flask.models.user import User
     from airtng_flask.models.vacation_property import VacationProperty
     from airtng_flask.models.reservation import Reservation
-    from airtng_flask.models.reservation import ReservationStatus
 
     @views.route('/', methods=["GET", "POST"])
     @views.route('/register', methods=["GET", "POST"])
@@ -129,7 +128,7 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
         user = User.query.filter(User.phone_number == form.From.data).first()
         reservation = Reservation \
             .query \
-            .filter(Reservation.status == ReservationStatus.Pending
+            .filter(Reservation.status == 'pending'
                     and Reservation.vacation_property.host.id == user.id) \
             .first()
 

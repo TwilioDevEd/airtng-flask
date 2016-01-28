@@ -5,18 +5,12 @@ from twilio.rest import TwilioRestClient
 db = app_db()
 
 
-class ReservationStatus(object):
-    Pending = 'pending'
-    Confirmed = 'confirmed'
-    Rejected = 'rejected'
-
-
 class Reservation(db.Model):
     __tablename__ = "reservations"
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String, nullable=False)
-    status = db.Column(db.String, nullable=False)
+    status = db.Column(db.Enum('pending', 'confirmed', 'rejected', name='reservation_status_enum'), default='pending')
 
     guest_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     vacation_property_id = db.Column(db.Integer, db.ForeignKey('vacation_properties.id'))
@@ -27,13 +21,13 @@ class Reservation(db.Model):
         self.message = message
         self.guest = guest
         self.vacation_property = vacation_property
-        self.status = ReservationStatus.Pending
+        self.status = 'pending'
 
     def confirm(self):
-        self.status = ReservationStatus.Confirmed
+        self.status = 'confirmed'
 
     def reject(self):
-        self.status = ReservationStatus.Rejected
+        self.status = 'rejected'
 
     def __repr__(self):
         return '<VacationProperty %r %r>' % self.id, self.name
