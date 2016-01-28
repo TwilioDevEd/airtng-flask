@@ -21,21 +21,10 @@ class FormTests(BaseTestCase):
         assert form.validate() is False
         assert 'Password is required' in form.password.errors
 
-    def test_populate_login_form_with_all_params_should_be_ok(self):
-        form = LoginForm(email='email@email.com', password='23232343x43434')
-
-        assert form.validate() is True
-
     def test_populate_register_form_with_missing_params_should_produce_error(self):
         form = RegisterForm(name='Name')
 
         assert form.validate() is False
-
-    def test_populate_register_form_with_all_params_should_be_ok(self):
-        form = RegisterForm(name='Name', email='email@email.com', password='1233', country_code='1',
-                            phone_number='4434455555')
-
-        assert form.validate() is True
 
     def test_populate_vacation_property_form_with_missing_params_should_be_ok(self):
         form = VacationPropertyForm(description='description')
@@ -47,8 +36,3 @@ class FormTests(BaseTestCase):
 
         assert form.validate() is False
         assert 'Invalid Image Url' in form.image_url.errors
-
-    def test_populate_vacation_property_form_with_all_params_should_be_ok(self):
-        form = VacationPropertyForm(description='description', image_url='http://images.com/image.png')
-
-        assert form.validate() is True

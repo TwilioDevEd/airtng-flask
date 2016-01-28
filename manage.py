@@ -1,10 +1,7 @@
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
-from airtng_flask.bootstrap import get_app
-from airtng_flask.database import get_db
 
-app = get_app()
-db = get_db()
+from airtng_flask import app, db
 
 migrate = Migrate(app, db)
 

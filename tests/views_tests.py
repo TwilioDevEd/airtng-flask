@@ -25,21 +25,6 @@ class ViewsTests(BaseTestCase):
 
         self.assert_template_used('register.html')
 
-    def test_get_to_new_property_route_should_render_default_view(self):
-        self.client.get('/properties/new')
-
-        self.assert_template_used('property_new.html')
-
-    def test_get_to_properties_route_should_render_default_view(self):
-        self.client.get('/properties')
-
-        self.assert_template_used('properties.html')
-
-    def test_get_to_new_reservation_route_should_render_default_view(self):
-        self.client.get('/reservations/1')
-
-        self.assert_template_used('reservation.html')
-
 
 if __name__ == '__main__':
     unittest.main()
