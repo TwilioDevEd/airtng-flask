@@ -7,4 +7,4 @@ install:
   - pip install coveralls
 before_script:
   - python manage.py db upgrade
-script: coverage run test.py
+script: coverage run manage.py test
