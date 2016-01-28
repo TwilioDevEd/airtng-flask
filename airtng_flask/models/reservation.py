@@ -1,4 +1,6 @@
-from airtng_flask.models import app_db
+from airtng_flask.models import app_db, auth_token, account_sid, phone_number
+from flask import render_template
+from twilio.rest import TwilioRestClient
 
 db = app_db()
 
@@ -35,3 +37,25 @@ class Reservation(db.Model):
 
     def __repr__(self):
         return '<VacationProperty %r %r>' % self.id, self.name
+
+    def notify_host(self):
+        self._send_message(self.vacation_property.host.phone_number,
+                           render_template('messages/sms_host.txt',
+                                           name=self.vacation_property.host.name,
+                                           description=self.vacation_property.description,
+                                           message=self.message))
+
+    def notify_guest(self):
+        self._send_message(self.guest.phone_number,
+                           render_template('messages/sms_guest.txt',
+                                           description=self.vacation_property.description,
+                                           status=self.status))
+
+    def _get_twilio_client(self):
+        return TwilioRestClient(account_sid(), auth_token())
+
+    def _send_message(self, to, message):
+        self._get_twilio_client().messages.create(
+                to=to,
+                from_=phone_number(),
+                body=message)

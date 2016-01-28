@@ -8,3 +8,5 @@ install:
 before_script:
   - python manage.py db upgrade
 script: coverage run test.py
+
+dsdsdsdsds

@@ -22,7 +22,7 @@ class FormTests(BaseTestCase):
         assert 'Password is required' in form.password.errors
 
     def test_populate_login_form_with_all_params_should_be_ok(self):
-        form = LoginForm(email='email@email.com', password='2323234343434')
+        form = LoginForm(email='email@email.com', password='23232343x43434')
 
         assert form.validate() is True
 

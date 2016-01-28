@@ -2,19 +2,16 @@ from flask import session, g, request, flash, Blueprint
 from flask.ext.login import login_user, logout_user, current_user, login_required
 import twilio.twiml
 
-from airtng_flask.services.sms_notifier import SmsNotifier
 from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, ReservationForm, \
     ReservationConfirmationForm
 from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
 from airtng_flask.models import init_models_module
-from airtng_flask.sms import init_sms_module
 
 
 def construct_view_blueprint(app, db, login_manager, bcrypt):
     views = Blueprint("views", __name__)
 
-    init_models_module(db, bcrypt)
-    init_sms_module(app)
+    init_models_module(db, bcrypt, app)
 
     from airtng_flask.models.user import User
     from airtng_flask.models.vacation_property import VacationProperty
@@ -101,7 +98,7 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
     @login_required
     def new_reservation(property_id):
 
-        global vacation_property
+        vacation_property = None
         form = ReservationForm()
         form.property_id.data = property_id
 
@@ -114,8 +111,7 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
                 db.session.add(reservation)
                 db.session.commit()
 
-                sms_notifier = SmsNotifier()
-                sms_notifier.notify_host(reservation)
+                reservation.notify_host()
 
                 return redirect_to('views', 'properties')
 
@@ -145,11 +141,9 @@ def construct_view_blueprint(app, db, login_manager, bcrypt):
                 reservation.reject()
 
             db.session.commit()
-            
-            sms_response_text = "You have successfully {0} the reservation".format(reservation.status);
 
-            sms_notifier = SmsNotifier()
-            sms_notifier.notify_guest(reservation)
+            sms_response_text = "You have successfully {0} the reservation".format(reservation.status)
+            reservation.notify_guest()
 
         return twiml(_respond_message(sms_response_text))
 
