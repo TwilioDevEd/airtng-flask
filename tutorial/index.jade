@@ -1,5 +1,5 @@
 .chapter(data-title='Workflow Automation')
-  .step(data-title='Introduction', data-file='airtng_flask/bootstrap.py')
+  .step(data-title='Introduction', data-file='airtng_flask/__init__.py')
     :markdown
       ## Workflow Automation - Vacation Rental example
 
@@ -69,7 +69,7 @@
 
   .step(data-title="Reservation Model",
     data-file='airtng_flask/models/reservation.py',
-    data-highlight='5-37')
+    data-highlight='5-33')
     :markdown
       ## The Reservation Model
 
@@ -101,16 +101,14 @@
       the host when the reservation is created.
 
   .step(data-title="Reservation Creation",
-    data-file='airtng_flask/sms/sms_sender.py')
+    data-file='airtng_flask/models/reservation.py' data-highlight='35-55')
     :markdown
       ## Notifying the host
 
       When a reservation is created for a property, we want to notify the host
-      that someone has made a reservation. For this purpose we use
-      an abstraction called [`SmsNotifier`](//github.com/TwilioDevEd/airtng-flask/blob/f8220038dea94f5ecc43e5069e9eaf3d6c846a47/airtng_flask/services/sms_notifier.py)
-      , which uses, under the hood, another abstraction called `SmsSender`.
+      that someone has made a reservation.
 
-      This one is where we use [Twilio's Rest
+      For that purpose we use [Twilio's Rest
       API](//www.twilio.com/docs/quickstart/python/sms/sending-via-rest)
       to send a SMS message to the _host_, using your [Twilio phone
       number](//www.twilio.com/user/account/phone-numbers/incoming).
@@ -127,7 +125,7 @@
 
   .step(data-title="Reservation Creation",
     data-file='airtng_flask/views.py',
-    data-highlight='127-154')
+    data-highlight='126-150')
     :markdown
       ## Handling Incoming Messages
 
