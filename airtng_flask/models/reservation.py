@@ -1,4 +1,4 @@
-from airtng_flask.models import app_db, auth_token, account_sid, phone_number
+from airtng_flask.models import app_db, auth_token, account_sid, phone_number, application_sid
 from flask import render_template
 from twilio.rest import TwilioRestClient
 
@@ -36,7 +36,7 @@ class Reservation(db.Model):
     def notify_host(self):
         self._send_message(self.vacation_property.host.phone_number,
                            render_template('messages/sms_host.txt',
-                                           name=self.vacation_property.host.name,
+                                           name=self.guest.name,
                                            description=self.vacation_property.description,
                                            message=self.message))
 
@@ -45,6 +45,35 @@ class Reservation(db.Model):
                            render_template('messages/sms_guest.txt',
                                            description=self.vacation_property.description,
                                            status=self.status))
+
+    def buy_number(self, area_code):
+        numbers = self._get_twilio_client().phone_numbers.search(country="US",
+                                                                 type="local",
+                                                                 area_code=area_code,
+                                                                 sms_enabled=True,
+                                                                 voice_enabled=True)
+
+        if numbers:
+            number = self._purchase_number(numbers[0])
+            self.anonymous_phone_number = number
+            return number
+        else:
+            numbers = self._get_twilio_client().phone_numbers.search(country="US",
+                                                                     type="local",
+                                                                     sms_enabled=True,
+                                                                     voice_enabled=True)
+
+            if numbers:
+                number = self._purchase_number(numbers[0])
+                self.anonymous_phone_number = number
+                return number
+
+        return None
+
+    def _purchase_number(self, number):
+        return number.purchase(sms_application_sid=application_sid(),
+                               voice_application_sid=application_sid()).phone_number
+
 
     def _get_twilio_client(self):
         return TwilioRestClient(account_sid(), auth_token())

@@ -29,3 +29,7 @@ def phone_number():
 
 def account_sid():
     return model_settings['app'].config['TWILIO_ACCOUNT_SID']
+
+
+def application_sid():
+    return model_settings['app'].config['APPLICATION_SID']

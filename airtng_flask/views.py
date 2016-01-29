@@ -30,8 +30,9 @@ def register():
                     name=form.name.data,
                     email=form.email.data,
                     password=form.password.data,
-                    phone_number="+{0}{1}".format(form.country_code.data, form.phone_number.data)
-            )
+                    phone_number="+{0}{1}".format(form.country_code.data, form.phone_number.data),
+                    area_code=str(form.phone_number.data)[0:3])
+
             db.session.add(user)
             db.session.commit()
             login_user(user, remember=True)
@@ -121,6 +122,26 @@ def new_reservation(property_id):
         vacation_property = VacationProperty.query.get(property_id)
 
     return view_with_params('reservation', vacation_property=vacation_property, form=form)
+
+
+@app.route('/reservations', methods=["GET"])
+@login_required
+def reservations():
+    user = User.query.get(current_user.get_id())
+
+    reservations_as_host = Reservation.query \
+        .filter(VacationProperty.host_id == current_user.get_id() and len(VacationProperty.reservations) > 0) \
+        .join(VacationProperty) \
+        .filter(Reservation.vacation_property_id == VacationProperty.id) \
+        .all()
+
+    reservations_as_guest = user.reservations
+
+    return view_with_params('reservations',
+                            reservations_as_guest=reservations_as_guest,
+                            reservations_as_host=reservations_as_host)
+
+
 
 
 @app.route('/reservations/confirm', methods=["POST"])
