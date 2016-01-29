@@ -13,7 +13,7 @@ class DefaultConfig(object):
 
 class DevelopmentConfig(DefaultConfig):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'dev.sqlite')
 
 
 class TestConfig(DefaultConfig):
