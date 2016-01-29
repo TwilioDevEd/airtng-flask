@@ -75,7 +75,7 @@ http://<your-ngrok-subdomain>.ngrok.io/exchange/voice
    pip install -r requirements.txt
    ```
 
-1. Edit the following keys/values for the `config.py` file inside the  `airtng_flask/` directory. Be sure to replace the place holders and connection string with real information or reuse the provided one, like the connection string.
+1. Edit the following keys/values for the `config.py` file inside the  `airtng_flask/` directory. Be sure to replace the place holders and connection string with real information.
 
    ```
    TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
