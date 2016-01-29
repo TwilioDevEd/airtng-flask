@@ -25,5 +25,6 @@ class ViewsTests(BaseTestCase):
 
         self.assert_template_used('register.html')
 
+
 if __name__ == '__main__':
     unittest.main()

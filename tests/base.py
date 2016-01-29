@@ -11,4 +11,3 @@ class BaseTestCase(TestCase):
         app.config['LOGIN_DISABLED'] = True
         app.config['WTF_CSRF_ENABLED'] = True
         return app
-

@@ -32,7 +32,6 @@ class Reservation(db.Model):
     def __repr__(self):
         return '<Reservation {0}>'.format(self.id)
 
-
     def notify_host(self):
         self._send_message(self.vacation_property.host.phone_number,
                            render_template('messages/sms_host.txt',
@@ -73,7 +72,6 @@ class Reservation(db.Model):
     def _purchase_number(self, number):
         return number.purchase(sms_application_sid=application_sid(),
                                voice_application_sid=application_sid()).phone_number
-
 
     def _get_twilio_client(self):
         return TwilioRestClient(account_sid(), auth_token())

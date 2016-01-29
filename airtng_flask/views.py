@@ -142,8 +142,6 @@ def reservations():
                             reservations_as_host=reservations_as_host)
 
 
-
-
 @app.route('/reservations/confirm', methods=["POST"])
 def confirm_reservation():
     form = ReservationConfirmationForm()
