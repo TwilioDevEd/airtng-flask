@@ -7,7 +7,13 @@ from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, Re
     ReservationConfirmationForm, ExchangeForm
 from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
 from airtng_flask.models import init_models_module
-from airtng_flask.phone import init_sms_module
+
+init_models_module(db, bcrypt, app)
+
+from airtng_flask.models.user import User
+from airtng_flask.models.vacation_property import VacationProperty
+from airtng_flask.models.reservation import Reservation
+
 
 @app.route('/', methods=["GET", "POST"])
 @app.route('/register', methods=["GET", "POST"])
@@ -66,11 +72,13 @@ def logout():
 def home():
     return view('home')
 
+
 @app.route('/properties', methods=["GET"])
 @login_required
 def properties():
     vacation_properties = VacationProperty.query.all()
     return view_with_params('properties', vacation_properties=vacation_properties)
+
 
 @app.route('/properties/new', methods=["GET", "POST"])
 @login_required
@@ -84,6 +92,9 @@ def new_property():
             db.session.add(property)
             db.session.commit()
             return redirect_to('properties')
+
+    return view('property_new', form)
+
 
 @app.route('/reservations/', methods=["POST"], defaults={'property_id': None})
 @app.route('/reservations/<property_id>', methods=["GET", "POST"])
@@ -128,7 +139,7 @@ def confirm_reservation():
 
         if 'yes' in form.Body.data or 'accept' in form.Body.data:
             reservation.confirm()
-            reservations.buy_number(user.area_code)
+            reservation.buy_number(user.area_code)
         else:
             reservation.reject()
 
@@ -139,6 +150,7 @@ def confirm_reservation():
 
     return twiml(_respond_message(sms_response_text))
 
+
 @app.route('/exchange/sms', methods=["POST"])
 def exchange_sms():
     form = ExchangeForm()
@@ -148,6 +160,7 @@ def exchange_sms():
     response = twilio.twiml.Response()
     response.addSms(form.Body.data, to=outgoing_number)
     return twiml(response)
+
 
 @app.route('/exchange/voice', methods=["POST"])
 def exchange_voice():
@@ -160,6 +173,7 @@ def exchange_voice():
     response.addDial(outgoing_number)
     return twiml(response)
 
+
 # controller utils
 @app.before_request
 def before_request():
@@ -169,6 +183,7 @@ def before_request():
                         uri_pattern == '/' or uri_pattern == '/login' or uri_pattern == '/register'):
         redirect_to('home')
 
+
 @login_manager.user_loader
 def load_user(id):
     try:
@@ -176,13 +191,17 @@ def load_user(id):
     except:
         return None
 
+
 def _gather_outgoing_phone_number(incoming_phone_number, anonymous_phone_number):
-    reservation = Reservation.query.filter(Reservation.anonymous_phone_number == anonymous_phone_number)
+    reservation = Reservation.query \
+        .filter(Reservation.anonymous_phone_number == anonymous_phone_number) \
+        .first()
 
     if reservation.guest.phone_number == incoming_phone_number:
         return reservation.vacation_property.host.phone_number
 
     return reservation.guest.phone_number
+
 
 def _respond_message(message):
     response = twilio.twiml.Response()
