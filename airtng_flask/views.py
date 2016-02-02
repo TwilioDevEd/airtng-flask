@@ -142,7 +142,7 @@ def reservations():
                             reservations_as_host=reservations_as_host)
 
 
-@app.route('/reservations/confirm', methods=["POST"])
+@app.route('/confirm', methods=["POST"])
 def confirm_reservation():
     form = ReservationConfirmationForm()
     sms_response_text = "Sorry, it looks like you don't have any reservations to respond to."
