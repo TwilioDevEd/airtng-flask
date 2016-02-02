@@ -123,7 +123,7 @@ def new_reservation(property_id):
     return view_with_params('reservation', vacation_property=vacation_property, form=form)
 
 
-@app.route('/reservations/confirm', methods=["POST"])
+@app.route('/confirm', methods=["POST"])
 def confirm_reservation():
     form = ReservationConfirmationForm()
     sms_response_text = "Sorry, it looks like you don't have any reservations to respond to."
