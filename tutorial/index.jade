@@ -9,7 +9,7 @@
       (agents, hosts, customer service reps, administrators, etc) to better
       serve their customer. To illustrate a very real-world example of this
       use-case we will implement a webapp for finding and booking vacation
-      properties--we're calling it Airtng. Here's how it works:
+      properties — we're calling it Airtng. Here's how it works:
 
       1. A host creates a vacation property
       2. A guest requests a reservation on that property
@@ -75,11 +75,11 @@
 
       The `Reservation` model is at the center of the workflow for this application.
       It is responsible for keeping track of:
-        * the `vacation_property` it is associated with
+        * The `guest` who performed the reservation
 
-        * the `guest` who performed the reservation
+        * The `vacation_property` the guest wants to stay in
 
-        * status of the reservation
+        * The `status` of the reservation: pending, confirmed, or rejected
 
   .step(data-title="Reservation Creation",
     data-file='airtng_flask/views.py',
