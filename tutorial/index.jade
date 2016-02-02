@@ -141,12 +141,12 @@
       ### Incoming Twilio Request
       In your [Twilio number](//www.twilio.com/user/account/phone-numbers/incoming)
       you must setup the SMS webhook to call your
-      application's endpoint in the route `/reservations/confirm`. Remember to
+      application's endpoint in the route `/confirm`. Remember to
       to expose your development machine to the outside world using
       [ngrok](//ngrok.com/). Your URL for the SMS web hook on your phone number
       should look like this:
       ```
-      http://<subdomain>.ngrok.io/reservations/confirm
+      http://<subdomain>.ngrok.io/confirm
       ```
 
       An incoming request from Twilio comes with some helpful
