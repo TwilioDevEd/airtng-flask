@@ -110,7 +110,7 @@ You can run the tests locally through [coverage](http://coverage.readthedocs.org
 1. Run the tests:
 
     ```
-    $ coverage run test.py
+    $ coverage run manage.py test
     ```
 
 You can then view the results with `coverage report` or build an HTML report with `coverage html`.
