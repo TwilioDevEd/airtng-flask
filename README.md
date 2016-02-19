@@ -5,6 +5,8 @@
 
 Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This example app is a vacation rental site, where the host can confirm a reservation via SMS.
 
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/masked-numbers/python/flask)!
+
 ## Local Development
 
 
@@ -24,7 +26,7 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
 
    Bear in mind that our endpoint is:
    ```
-   http://<your-ngrok-subdomain>.ngrok.io/reservation-confirmation
+   http://<your-ngrok-subdomain>.ngrok.io/confirm
    ```
 
 1. Clone this repository and `cd` into its directory:
