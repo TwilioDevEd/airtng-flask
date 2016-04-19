@@ -6,13 +6,13 @@
       ![Airtng](//howtodocs.s3.amazonaws.com/airtng-screen.png)
 
       This [Flask](http://flask.pocoo.org/) sample application is modeled after the
-      rental experience created by [AirBnB](//www.airbnb.com), but with
+      rental experience created by [AirBnB](//www.airbnb.com) but with
       more [Klingons](//en.wikipedia.org/wiki/Klingon).
 
       Host users can offer rental properties which other guest users can
       reserve. The guest and the host can then anonymously communicate via a
-      disposable Twilio phone number created just for a reservation. In this
-      tutorial, we'll show you the key bits of code to make this work.
+      disposable Twilio phone number created just for a reservation. On this
+      tutorial we'll show you the key bits of code to make this work.
 
       To run this sample app yourself, download the code and follow the
       [instructions on
@@ -38,9 +38,9 @@
     :markdown
       ## Create a Reservation
 
-      The first step in connecting a guest and host is creating a reservation.
+      The first step in connecting a guest and a host is creating a reservation.
 
-      Here, we handle a form submission for a new reservation. After we save
+      We handle here a submission form for a new reservation. After we save
       the reservation to the database, we send the host an SMS message asking
       them to accept or reject the reservation.
 
@@ -55,24 +55,24 @@
     data-file='airtng_flask/views.py',
     data-highlight='158-165')
     :markdown
-      ## Confirm the Reservation
+      ## Confirming the Reservation
 
       Before the reservation is finalized, the host needs to confirm that the property
-      was reserved. Learn how to automate this process in our first AirTNG
-      tutorial, [Workflow Automation](//twilio.com/docs/tutorials/walkthrough/workflow-automation/python/flask).
+      was reserved. Learn how to automate this process on our first AirTNG
+      tutorial [Workflow Automation](//twilio.com/docs/tutorials/walkthrough/workflow-automation/python/flask).
 
-      Once the reservation is confirmed, we need to purchase a Twilio number that
+      Once the reservation is confirmed we need to purchase a Twilio number that
       the guest and host can use to communicate. Let's take a look at that next.
 
 
   .step(data-title="Purchase a Twilio Number",
     data-file='airtng_flask/models/reservation.py' data-highlight='48-74')
     :markdown
-      ## Purchase a Twilio Number
+      ## Purchasing a Twilio Number
 
       Here we use the [Twilio Python helper library](//www.twilio.com/docs/python/install) to
       search for and buy a new phone number to associate with the reservation.
-      We start by searing for a number in a local area code - if we can't find
+      We start by searching for a number with a local area code - if we can't find
       one, we take any available phone number in that country.
 
       When we buy the number, we designate a [TwiML
@@ -80,8 +80,8 @@
       [webhook](//en.wikipedia.org/wiki/Webhook) requests when the new number
       receives an incoming call or text.
 
-      We then save the new phone number on our `Reservation` model, so when our
-      app receives calls or messages to this number, we'll know which reservation
+      We then save the new phone number on our `Reservation` model. Therefore when our
+      app receives calls or messages to this number we know which reservation
       the call or text belongs to.
 
       ---
@@ -97,10 +97,10 @@
     data-file='airtng_flask/views.py',
     data-highlight='215-221')
     :markdown
-      ## Find a Reservation
+      ## Finding a Reservation
 
-      When someone messages or calls one of the Twilio numbers we purchased for
-      a reservation, Twilio makes a request to the URL you set in the TwiML app.
+      When someone messages or calls one of the Twilio numbers (that we purchased for
+      a reservation) Twilio makes a request to the URL you set in the TwiML app.
       That request will contain some helpful metadata:
 
       * The `incoming_phone_number` number that originally called or sent an SMS.
@@ -114,14 +114,14 @@
 
       In our code we use the `To` parameter sent by Twilio to find a reservation
       that has the number we bought stored in it, as this is the number both hosts
-      and guests will call and send SMS to.
+      and guests will call and send SMSs to.
 
 
   .step(data-title="Connect Via SMS",
     data-file='airtng_flask/views.py',
     data-highlight='173-181')
     :markdown
-      ## Connect Via SMS
+      ## Connecting Via SMS
 
       Our [TwiML application](//www.twilio.com/docs/api/rest/applications)
       should be configured to [send HTTP
@@ -131,7 +131,7 @@
       response to the message.
 
       If the initial message sent to the anonymous number was sent by the host,
-      we forward it on to the guest. Conversely, if the original message was
+      we forward it on to the guest. Likewise, if the original message was
       sent by the guest, we forward it to the host.
 
       We wrote a helper function called `gather_outgoing_phone_number` to help
@@ -149,7 +149,7 @@
     data-file='airtng_flask/views.py',
     data-highlight='184-193')
     :markdown
-      ## Connect Via Phone Call
+      ## Connecting Via Phone Call
 
       Our [Twilio application](//www.twilio.com/docs/api/rest/applications)
       will [send HTTP requests](//www.twilio.com/docs/api/twiml/twilio_request)
@@ -168,9 +168,11 @@
     :markdown
       ## Where to Next?
 
-      That's it! We've just implemented anonymous communications that allow your
+      That's it!
+
+      We've just implemented anonymous communications that allow your
       customers to connect while protecting their privacy. If you're a Python
-      developer working with Twilio, you might want to check out these other tutorials:
+      developer working with Twilio you might want to check out these other tutorials:
 
       [**IVR: Phone Tree**](//www.twilio.com/docs/howto/walkthrough/ivr-phone-tree/python/flask)
 
@@ -186,8 +188,8 @@
 
       ### Did this help?
 
-      Thanks for checking out this tutorial! If you have any feedback to share
-      with us, we'd love to hear it. Tweet
-      [@twilio](http://twitter.com/twilio) to let us know what you think.
+      Thanks for checking out this tutorial! If you have any feedback
+      to share with us, we'd love to hear it.
+      [Contact support](//www.twilio.com/help/contact) to let us know what you think.
 
       ![Airtng](http://howtodocs.s3.amazonaws.com/airtng-screen2.png)
