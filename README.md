@@ -7,15 +7,15 @@
 [![Build Status](https://travis-ci.org/TwilioDevEd/airtng-flask.svg?branch=masked-numbers)]
 (https://travis-ci.org/TwilioDevEd/airtng-flask)
 
-Protect your customers' privacy, and create a seamless interaction by provisioning Twilio numbers on the fly. Route all voice calls and messages through your very own 3rd party. This allows you to control the interaction between your customers while putting your customer's privacy first.
+Protect your customers' privacy by creating a seamless interaction by provisioning Twilio numbers on the fly. Route all voice calls and messages through your very own 3rd party. This allows you to control the interaction between your customers, while putting your customer's privacy first.
 
 ## Configure Twilio to call your webhooks
 
-You will need to configure Twilio to send requests to your application when SMS are received.
+You will need to configure Twilio to send requests to your application when SMSs are received.
 
 You will need to provision at least one Twilio number with SMS capabilities so the application's users can make property reservations. You can buy a number [right here](https://www.twilio.com/user/account/phone-numbers/search). Once you have a number you need to configure it to work with your application. Open [the number management page](https://www.twilio.com/user/account/phone-numbers/incoming) and open a number's configuration by clicking on it.
 
-Remember that the number where you change the _SMS webhook_ must be the same one you set on the `TwilioPhoneNumber` setting.
+Remember that the number where you change the _SMS webhook_ must be the same one you set on the `TwilioPhoneNumber` settings.
 
 ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
 
@@ -111,8 +111,6 @@ http://<your-ngrok-subdomain>.ngrok.io/exchange/voice
 
 1. Check it out at [http://localhost:5000](http://localhost:5000)
 
-
-That's it!
 
 ## Run the tests
 
