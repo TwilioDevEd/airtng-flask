@@ -21,7 +21,7 @@ Remember that the number where you change the _SMS webhook_ must be the same one
 
  To start using `ngrok` in our project you'll have execute to the following line in the _command prompt_.
 
-```
+```bash
 ngrok http 5000 -host-header="localhost:5000"
 ```
 
@@ -55,13 +55,13 @@ http://<your-ngrok-subdomain>.ngrok.io/exchange/voice
 
 1. Clone this repository and `cd` into it.
 
-   ```
+   ```bash
    git clone git@github.com:TwilioDevEd/airtng-flask.git
    ```
 
 1. Switch to `masked-numbers` branch.
 
-    ```
+    ```bash
     git checkout masked-numbers
     ```
 
@@ -69,20 +69,20 @@ http://<your-ngrok-subdomain>.ngrok.io/exchange/voice
 
    - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
 
-       ```
+       ```bash
        virtualenv venv
        source venv/bin/activate
        ```
 
    - If using [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/):
 
-       ```
+       ```bash
        mkvirtualenv airtng-flask
        ```
 
 1. Install the requirements.
 
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 
@@ -99,13 +99,13 @@ http://<your-ngrok-subdomain>.ngrok.io/exchange/voice
 
 1. Run the migrations.
 
-   ```
+   ```bash
    python manage.py db upgrade
    ```
 
 1. Start the development server.
 
-   ```
+   ```bash
    python manage.py runserver
    ```
 
@@ -118,7 +118,7 @@ You can run the tests locally through [coverage](http://coverage.readthedocs.org
 
 1. Run the tests.
 
-    ```
+    ```bash
     $ coverage run manage.py test
     ```
 
