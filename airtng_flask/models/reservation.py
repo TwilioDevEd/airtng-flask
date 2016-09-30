@@ -1,6 +1,6 @@
 from airtng_flask.models import app_db, auth_token, account_sid, phone_number
 from flask import render_template
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
 db = app_db()
 
