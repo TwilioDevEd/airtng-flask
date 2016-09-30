@@ -46,7 +46,7 @@ class Reservation(db.Model):
                                            status=self.status))
 
     def _get_twilio_client(self):
-        return TwilioRestClient(account_sid(), auth_token())
+        return Client(account_sid(), auth_token())
 
     def _send_message(self, to, message):
         self._get_twilio_client().messages.create(
