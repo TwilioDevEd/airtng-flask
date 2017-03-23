@@ -4,7 +4,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 import twilio.twiml
 
 from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, ReservationForm, \
-    ReservationConfirmationForm, ExchangeForm
+    ReservationConfirmationForm
 from airtng_flask.view_helpers import twiml, view, redirect_to, view_with_params
 from airtng_flask.models import init_models_module
 
@@ -30,9 +30,8 @@ def register():
                     name=form.name.data,
                     email=form.email.data,
                     password=form.password.data,
-                    phone_number="+{0}{1}".format(form.country_code.data, form.phone_number.data),
-                    area_code=str(form.phone_number.data)[0:3])
-
+                    phone_number="+{0}{1}".format(form.country_code.data, form.phone_number.data)
+            )
             db.session.add(user)
             db.session.commit()
             login_user(user, remember=True)
@@ -124,25 +123,7 @@ def new_reservation(property_id):
     return view_with_params('reservation', vacation_property=vacation_property, form=form)
 
 
-@app.route('/reservations', methods=["GET"])
-@login_required
-def reservations():
-    user = User.query.get(current_user.get_id())
-
-    reservations_as_host = Reservation.query \
-        .filter(VacationProperty.host_id == current_user.get_id() and len(VacationProperty.reservations) > 0) \
-        .join(VacationProperty) \
-        .filter(Reservation.vacation_property_id == VacationProperty.id) \
-        .all()
-
-    reservations_as_guest = user.reservations
-
-    return view_with_params('reservations',
-                            reservations_as_guest=reservations_as_guest,
-                            reservations_as_host=reservations_as_host)
-
-
-@app.route('/reservations/confirm', methods=["POST"])
+@app.route('/confirm', methods=["POST"])
 def confirm_reservation():
     form = ReservationConfirmationForm()
     sms_response_text = "Sorry, it looks like you don't have any reservations to respond to."
@@ -158,7 +139,6 @@ def confirm_reservation():
 
         if 'yes' in form.Body.data or 'accept' in form.Body.data:
             reservation.confirm()
-            reservation.buy_number(user.area_code)
         else:
             reservation.reject()
 
@@ -168,29 +148,6 @@ def confirm_reservation():
         reservation.notify_guest()
 
     return twiml(_respond_message(sms_response_text))
-
-
-@app.route('/exchange/sms', methods=["POST"])
-def exchange_sms():
-    form = ExchangeForm()
-
-    outgoing_number = _gather_outgoing_phone_number(form.From.data, form.To.data)
-
-    response = twilio.twiml.Response()
-    response.addSms(form.Body.data, to=outgoing_number)
-    return twiml(response)
-
-
-@app.route('/exchange/voice', methods=["POST"])
-def exchange_voice():
-    form = ExchangeForm()
-
-    outgoing_number = _gather_outgoing_phone_number(form.From.data, form.To.data)
-
-    response = twilio.twiml.Response()
-    response.addPlay("http://howtodocs.s3.amazonaws.com/howdy-tng.mp3")
-    response.addDial(outgoing_number)
-    return twiml(response)
 
 
 # controller utils
@@ -209,17 +166,6 @@ def load_user(id):
         return User.query.get(id)
     except:
         return None
-
-
-def _gather_outgoing_phone_number(incoming_phone_number, anonymous_phone_number):
-    reservation = Reservation.query \
-        .filter(Reservation.anonymous_phone_number == anonymous_phone_number) \
-        .first()
-
-    if reservation.guest.phone_number == incoming_phone_number:
-        return reservation.vacation_property.host.phone_number
-
-    return reservation.guest.phone_number
 
 
 def _respond_message(message):
