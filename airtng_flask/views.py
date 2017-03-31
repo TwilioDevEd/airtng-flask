@@ -1,7 +1,7 @@
 from airtng_flask import db, bcrypt, app, login_manager
 from flask import session, g, request, flash, Blueprint
 from flask.ext.login import login_user, logout_user, current_user, login_required
-import twilio.twiml
+from twilio.twiml.voice_response import VoiceResponse
 
 from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, ReservationForm, \
     ReservationConfirmationForm
@@ -169,6 +169,6 @@ def load_user(id):
 
 
 def _respond_message(message):
-    response = twilio.twiml.Response()
+    response = VoiceResponse()
     response.message(message)
     return response
