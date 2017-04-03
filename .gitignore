@@ -60,3 +60,6 @@ target/
 
 .env
 .env.test
+
+.idea
+dev.sqlite

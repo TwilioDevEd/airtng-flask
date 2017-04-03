@@ -1,6 +1,6 @@
 from airtng_flask.models import app_db, auth_token, account_sid, phone_number
 from flask import render_template
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
 db = app_db()
 
@@ -46,7 +46,7 @@ class Reservation(db.Model):
                                            status=self.status))
 
     def _get_twilio_client(self):
-        return TwilioRestClient(account_sid(), auth_token())
+        return Client(account_sid(), auth_token())
 
     def _send_message(self, to, message):
         self._get_twilio_client().messages.create(
