@@ -17,7 +17,7 @@ Jinja2==2.8
 linecache2==1.0.0
 Mako==1.0.3
 MarkupSafe==0.23
-pycparser==2.14
+pycparser==2.19
 python-editor==0.5
 pytz==2015.7
 six==1.10.0
