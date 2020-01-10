@@ -1,7 +1,7 @@
 # Airtng App: Part 1 - Workflow Automation with Python | Flask
 
-[![Build Status](https://travis-ci.org/TwilioDevEd/airtng-flask.svg?branch=master)]
-(https://travis-ci.org/TwilioDevEd/airtng-flask)
+[![Build Status](https://travis-ci.org/TwilioDevEd/airtng-flask.svg?branch=master)](https://travis-ci.org/TwilioDevEd/airtng-flask)
+
 
 Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This example app is a vacation rental site, where the host can confirm a reservation via SMS.
 
@@ -15,8 +15,6 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
    You will need to provision at least one Twilio number with sms capabilities so the application's users can make property reservations. You can buy a number [right here](https://www.twilio.com/user/account/phone-numbers/search). Once you have a number you need to configure it to work with your application. Open [the number management page](https://www.twilio.com/user/account/phone-numbers/incoming) and open a number's configuration by clicking on it.
 
    Remember that the number where you change the _SMS webhook_ must be the same one you set on the `TwilioPhoneNumber` setting.
-
-   ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
 
    To start using `ngrok` in our project you'll have execute to the following line in the _command prompt_.
 
