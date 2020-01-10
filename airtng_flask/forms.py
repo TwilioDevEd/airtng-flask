@@ -1,9 +1,9 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import TextField, PasswordField, IntegerField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, URL
 
 
-class RegisterForm(Form):
+class RegisterForm(FlaskForm):
     name = TextField(
             'Tell us your name:',
             validators=[DataRequired(message="Name is required"),
@@ -29,7 +29,7 @@ class RegisterForm(Form):
     )
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     email = TextField(
             'E-mail:',
             validators=[DataRequired("E-mail is required"), Email(message="Invalid E-mail address")]
@@ -40,7 +40,7 @@ class LoginForm(Form):
     )
 
 
-class VacationPropertyForm(Form):
+class VacationPropertyForm(FlaskForm):
     description = TextField(
             'Description:',
             validators=[DataRequired("Description is required")]
@@ -51,7 +51,7 @@ class VacationPropertyForm(Form):
     )
 
 
-class ReservationForm(Form):
+class ReservationForm(FlaskForm):
     message = TextField(
             'Message:',
             validators=[DataRequired("Message is required")]
@@ -60,6 +60,6 @@ class ReservationForm(Form):
     property_id = HiddenField()
 
 
-class ReservationConfirmationForm(Form):
+class ReservationConfirmationForm(FlaskForm):
     From = TextField('From:')
     Body = TextField('Body')

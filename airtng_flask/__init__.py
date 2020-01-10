@@ -2,8 +2,8 @@ import os
 from airtng_flask.config import config_env_files
 from flask import Flask
 
-from flask.ext.bcrypt import Bcrypt
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 db = SQLAlchemy()
