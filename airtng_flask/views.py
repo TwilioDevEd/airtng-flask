@@ -1,6 +1,6 @@
 from airtng_flask import db, bcrypt, app, login_manager
 from flask import session, g, request, flash, Blueprint
-from flask.ext.login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user, current_user, login_required
 from twilio.twiml.voice_response import VoiceResponse
 
 from airtng_flask.forms import RegisterForm, LoginForm, VacationPropertyForm, ReservationForm, \

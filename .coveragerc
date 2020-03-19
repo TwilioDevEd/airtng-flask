@@ -1,7 +1,8 @@
 # Coverage configuration file
 
 [run]
-source = .
+source =
+  airtng_flask
 
 omit = 
   */migrations/*

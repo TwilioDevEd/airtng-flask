@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+venv
 .Python
 env/
 ivr-env/
@@ -63,3 +64,5 @@ target/
 
 .idea
 dev.sqlite
+
+.vscode

@@ -17,6 +17,8 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
 
    Remember that the number where you change the _SMS webhook_ must be the same one you set on the `TwilioPhoneNumber` setting.
 
+   ![Configure Messaging](webhook.png)
+
    To start using `ngrok` in our project you'll have execute to the following line in the _command prompt_.
 
    ```
@@ -56,15 +58,15 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
    pip install -r requirements.txt
    ```
 
-1. Edit the following keys/values for the `config.py` file inside the  `airtng_flask/` directory. Be sure to replace the place holders and connection string with real information. Replace the connection string preferably under development config.
+1. Copy the sample configuration `.env.example` to `.env`, and then edit `.env` to match your configuration.
 
-   ```
-   TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
-   TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
-   TWILIO_NUMBER = 'your_twilio_phone_number'
+  ```bash
+  cp .env.example .env
+  ```
 
-   SQLALCHEMY_DATABASE_URI = 'sqlite://'
-   ```
+  You can find your `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` in your
+   [Twilio Account Settings](https://www.twilio.com/console).
+   You will also need a `TWILIO_PHONE_NUMBER`, which you may find [here](https://www.twilio.com/console/phone-numbers/incoming).
 
 1. Run the migrations.
 
@@ -98,5 +100,6 @@ You can then view the results with `coverage report` or build an HTML report wit
 ## Meta
 
 * No warranty expressed or implied. Software is as is. Diggity.
+* The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
 * [MIT License](http://www.opensource.org/licenses/mit-license.html)
 * Lovingly crafted by Twilio Developer Education.

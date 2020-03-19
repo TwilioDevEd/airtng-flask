@@ -1,4 +1,4 @@
-from flask.ext.testing import TestCase
+from flask_testing import TestCase
 
 from airtng_flask import app, config_app
 

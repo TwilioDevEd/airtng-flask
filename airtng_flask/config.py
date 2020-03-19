@@ -2,14 +2,16 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+from dotenv import load_dotenv
+load_dotenv()
 
 class DefaultConfig(object):
     SECRET_KEY = 'secret-key'
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'
-    TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
-    TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
-    TWILIO_NUMBER = 'your_twilio_number'
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
+    TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+    TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+    TWILIO_NUMBER = os.getenv('TWILIO_NUMBER')
 
 
 class DevelopmentConfig(DefaultConfig):
