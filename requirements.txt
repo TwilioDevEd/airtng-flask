@@ -1,7 +1,7 @@
 alembic==0.8.4
 bcrypt==2.0.0
 blinker==1.4
-cffi==1.4.2
+cffi==1.14.0
 coverage==4.0.3
 Flask==0.10.1
 Flask-Bcrypt==0.7.1
