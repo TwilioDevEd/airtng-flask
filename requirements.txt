@@ -16,7 +16,7 @@ itsdangerous==0.24
 Jinja2==2.8
 linecache2==1.0.0
 Mako==1.0.3
-MarkupSafe==0.23
+MarkupSafe==1.1.1
 pycparser==2.14
 python-editor==0.5
 pytz==2015.7
