@@ -8,7 +8,7 @@ load_dotenv()
 class DefaultConfig(object):
     SECRET_KEY = 'secret-key'
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = 'sqlite://'
     TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
     TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
     TWILIO_NUMBER = os.getenv('TWILIO_NUMBER')
