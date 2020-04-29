@@ -19,6 +19,11 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
 
    ![Configure Messaging](webhook.png)
 
+   You need to expose your application to the wider internet using [ngrok](https://ngrok.com/download).  
+   This step is important because the application won't work as expected if you run it through localhost.
+
+   > [Learn 6 awesome reasons why to use ngrok](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html).
+   
    To start using `ngrok` in our project you'll have execute to the following line in the _command prompt_.
 
    ```
@@ -31,13 +36,13 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
    http://<your-ngrok-subdomain>.ngrok.io/confirm
    ```
 
-1. Clone this repository and `cd` into it.
+2. Clone this repository and `cd` into it.
 
    ```
    git clone git@github.com:TwilioDevEd/airtng-flask.git
    ```
 
-1. Create a new virtual environment.
+3. Create a new virtual environment.
 
    - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
 
@@ -52,13 +57,13 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
        mkvirtualenv airtng-flask
        ```
 
-1. Install the requirements.
+4. Install the requirements.
 
    ```
    pip install -r requirements.txt
    ```
 
-1. Copy the sample configuration `.env.example` to `.env`, and then edit `.env` to match your configuration.
+5. Copy the sample configuration `.env.example` to `.env`, and then edit `.env` to match your configuration.
 
   ```bash
   cp .env.example .env
@@ -68,19 +73,19 @@ Learn how to automate your workflow using Twilio's REST API and Twilio SMS. This
    [Twilio Account Settings](https://www.twilio.com/console).
    You will also need a `TWILIO_PHONE_NUMBER`, which you may find [here](https://www.twilio.com/console/phone-numbers/incoming).
 
-1. Run the migrations.
+6. Run the migrations.
 
    ```
    python manage.py db upgrade
    ```
 
-1. Start the development server.
+7. Start the development server.
 
    ```
    python manage.py runserver
    ```
 
-1. Check it out at [http://localhost:5000](http://localhost:5000)
+8. Check it out at [http://localhost:5000](http://localhost:5000)
 
 
 That's it!
@@ -88,8 +93,6 @@ That's it!
 ## Run the tests
 
 You can run the tests locally through [coverage](http://coverage.readthedocs.org/):
-
-1. Run the tests.
 
     ```
     $ coverage run manage.py test

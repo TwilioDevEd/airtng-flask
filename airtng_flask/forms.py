@@ -19,8 +19,7 @@ class RegisterForm(Form):
     )
     country_code = TextField(
             'Country Code:',
-            validators=[DataRequired("Country code is required"),
-                        Length(min=1, max=4, message="Country code must be between 1 and 4 numbers")]
+            validators=[Length(min=1, max=4, message="Country code must be between 1 and 4 numbers")]
     )
 
     phone_number = IntegerField(
