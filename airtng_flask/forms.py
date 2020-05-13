@@ -1,4 +1,4 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm as Form
 from wtforms import TextField, PasswordField, IntegerField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, URL
 
@@ -19,8 +19,7 @@ class RegisterForm(Form):
     )
     country_code = TextField(
             'Country Code:',
-            validators=[DataRequired("Country code is required"),
-                        Length(min=1, max=4, message="Country code must be between 1 and 4 numbers")]
+            validators=[Length(min=1, max=4, message="Country code must be between 1 and 4 numbers")]
     )
 
     phone_number = IntegerField(

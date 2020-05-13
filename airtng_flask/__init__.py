@@ -2,8 +2,8 @@ import os
 from airtng_flask.config import config_env_files
 from flask import Flask
 
-from flask.ext.bcrypt import Bcrypt
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 db = SQLAlchemy()
@@ -14,6 +14,7 @@ login_manager = LoginManager()
 def create_app(config_name='development', p_db=db, p_bcrypt=bcrypt, p_login_manager=login_manager):
     new_app = Flask(__name__)
     config_app(config_name, new_app)
+    new_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     p_db.init_app(new_app)
     p_bcrypt.init_app(new_app)
