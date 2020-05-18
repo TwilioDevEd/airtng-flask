@@ -55,7 +55,7 @@ Before we begin, we need to collect all the config values we need to run the app
    [Twilio Account Settings](https://www.twilio.com/console).
    You will also need a `TWILIO_PHONE_NUMBER`, which you may find [here](https://www.twilio.com/console/phone-numbers/incoming).
 
-1. Start the development server.
+1. Start the development server. Before running the following command, make sure the virtual environment is activated.
 
    ```bash
    make serve
