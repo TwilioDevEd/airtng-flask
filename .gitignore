@@ -66,3 +66,5 @@ target/
 dev.sqlite
 
 .vscode
+
+.tool-versions
