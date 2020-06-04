@@ -39,13 +39,13 @@ Before we begin, we need to collect all the config values we need to run the app
    git clone git@github.com:TwilioDevEd/airtng-flask.git
    ```
 
-1. Install the requirements.
+2. Install the requirements.
 
    ```bash
    make install
    ```
 
-1. Copy the sample configuration `.env.example` to `.env`, and then edit `.env` to match your configuration.
+3. Copy the sample configuration `.env.example` to `.env`, and then edit `.env` to match your configuration.
 
    ```bash
    cp .env.example .env
@@ -53,15 +53,15 @@ Before we begin, we need to collect all the config values we need to run the app
 
    See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
 
-1. Start the development server. Before running the following command, make sure the virtual environment is activated.
+4. Start the development server. Before running the following command, make sure the virtual environment is activated.
 
    ```bash
    make serve
    ```
 
-1. Check it out at [http://localhost:5000](http://localhost:5000)
+5. Check it out at [http://localhost:5000](http://localhost:5000)
 
-1. To let our Twilio phone number use the callback endpoint we exposed, our development server will need to be publicly accessible. You could expose the application to the wider Internet using [ngrok](https://ngrok.com/). [Here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html), there is an interesting article about why we recommend you to use ngrok.
+6. To let our Twilio phone number use the callback endpoint we exposed, our development server will need to be publicly accessible. You could expose the application to the wider Internet using [ngrok](https://ngrok.com/). [Here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html), there is an interesting article about why we recommend you to use ngrok.
 
    ```bash
    ngrok http 5000
@@ -73,14 +73,23 @@ Before we begin, we need to collect all the config values we need to run the app
    http://<your-ngrok-subdomain>.ngrok.io/confirm
    ```
 
-1. You will need to configure Twilio to send requests to your application when SMS are received. You will need to provision at least one Twilio number with sms capabilities so the application's users can make property reservations. On [Twilio Account Settings](#twilio-account-settings) you could find the link to buy a Twilio number. Once you have a Twilio number you need to configure your number to work with your application. Open the number management page and open a number's configuration by clicking on it. Remember that the number where you change the SMS webhook must be the same one you set on the TWILIO_NUMBER setting.
+7. You will need to configure Twilio to send requests to your application when SMS are received. You will need to provision at least one Twilio number with sms capabilities so the application's users can make property reservations. On [Twilio Account Settings](#twilio-account-settings) you could find the link to buy a Twilio number. Once you have a Twilio number you need to configure your number to work with your application. Open the number management page and open a number's configuration by clicking on it. Remember that the number where you change the SMS webhook must be the same one you set on the TWILIO_NUMBER setting.
 
    ![Configure Messaging](webhook.png)
 
 
 That's it!
 
-## Tests
+### Docker
+
+If you have [Docker](https://www.docker.com/) already installed on your machine, you can use our `docker-compose.yml` to setup your project.
+
+1. Make sure you have the project cloned.
+2. Setup the `.env` file as outlined in the [Local Development](#local-development) steps.
+3. Run `docker-compose up`.
+4. Follow the steps in [Local Development](#local-development) on how to expose your port to Twilio using a tool like [ngrok](https://ngrok.com/) and configure the remaining parts of your application.
+
+### Tests
 
 You can run the tests locally through [coverage](http://coverage.readthedocs.org/):
 
