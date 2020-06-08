@@ -1,17 +1,15 @@
-FROM python:3.6
+FROM python:3.8
 
 WORKDIR /usr/src/app
 
 COPY requirements.txt ./
 
-RUN python3 -m venv venv && . venv/bin/activate
+COPY Makefile ./
 
-RUN pip3 install -r requirements.txt
+RUN make install
 
-COPY . /usr/src/app
+COPY . .
 
 EXPOSE 5000
 
-RUN python3 manage.py db upgrade
-
-CMD ["python3", "manage.py", "runserver"]
+CMD ["sh", "-c", ". /usr/src/app/venv/bin/activate && make serve"]
