@@ -1,5 +1,5 @@
 # Airtng App: Part 1 - Workflow Automation with Python | Flask
-> We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
+> This template is part of Twilio CodeExchange. If you encounter any issues with this code, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues).
 
 ![](https://github.com/TwilioDevEd/airtng-flask/workflows/Flask/badge.svg)
 
