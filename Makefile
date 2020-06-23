@@ -1,4 +1,4 @@
-.PHONY: venv install
+.PHONY: venv install serve-setup open-browser serve
 UNAME := $(shell uname)
 venv:
 ifeq ($(UNAME), Windows)
