@@ -2,9 +2,9 @@ name: Flask
 
 on:
   push:
-    branches: [ master, next ]
+    branches: [ main ]
   pull_request:
-    branches: [ master, next ]
+    branches: [ main ]
 
 jobs:
   build:
