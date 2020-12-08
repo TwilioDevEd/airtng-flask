@@ -20,7 +20,7 @@ MarkupSafe==1.1.1
 pycparser==2.20
 python-dotenv==0.12.0
 python-editor==1.0.4
-pytz==2019.3
+pytz==2020.4
 six==1.15.0
 SQLAlchemy==1.3.20
 traceback2==1.4.0
