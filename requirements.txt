@@ -1,4 +1,4 @@
-alembic==1.5.3
+alembic==1.5.4
 bcrypt==3.2.0
 blinker==1.4
 cffi==1.14.4
