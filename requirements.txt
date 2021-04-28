@@ -28,4 +28,4 @@ twilio==6.57.0
 unittest2==1.1.0
 Werkzeug==1.0.1
 wheel==0.36.2
-WTForms==2.2.1
+WTForms==2.3.3
