@@ -24,7 +24,7 @@ pytz==2021.1
 six==1.15.0
 SQLAlchemy==1.4.11
 traceback2==1.4.0
-twilio==6.57.0
+twilio==7.7.0
 unittest2==1.1.0
 Werkzeug==1.0.1
 wheel==0.36.2
