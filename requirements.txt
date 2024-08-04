@@ -29,3 +29,6 @@ unittest2==1.1.0
 Werkzeug==1.0.1
 wheel==0.36.2
 WTForms==2.2.1
+certifi>=2024.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
+idna>=3.7 # not directly required, pinned by Snyk to avoid a vulnerability
+requests>=2.31.0 # not directly required, pinned by Snyk to avoid a vulnerability
